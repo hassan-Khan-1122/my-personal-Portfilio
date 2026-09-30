@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hassan | Frontend Developer Portfolio</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%236366f1'/><text y='50%' x='50%' dominant-baseline='middle' text-anchor='middle' font-family='monospace' font-size='52' font-weight='bold' fill='white'>H</text></svg>">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    }
+  </script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+    body { transition: background-color 0.4s ease, color 0.4s ease; }
+
+    .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+    .fade-in.show { opacity: 1; transform: translateY(0); }
+
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #111; }
+    ::-webkit-scrollbar-thumb { background: #6366f1; border-radius: 10px; }
+
+    .timeline-line::before {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 0;
+      height: 100%;
+      width: 2px;
+      background: linear-gradient(to bottom, #6366f1, transparent);
+    }
+
+    .browser-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 14px;
+      background: #1a1d2e;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      flex-shrink: 0;
+    }
+    .dark .browser-bar { background: #111827; }
+    .bg-white .browser-bar,
+    :not(.dark) .browser-bar {
+      background: #e8eaf0;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+    .browser-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .browser-url {
+      flex: 1;
+      height: 18px;
+      border-radius: 4px;
+      margin-left: 8px;
+      background: rgba(0,0,0,0.15);
+    }
+    .dark .browser-url { background: rgba(255,255,255,0.07); }
+
+    .project-img-wrap {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: #1a1d2e;
+      flex-shrink: 0;
+    }
+    .project-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+      transition: transform 0.7s ease;
+    }
+    .group:hover .project-img-wrap img { transform: scale(1.05); }
+  </style>
+</head>
+
+<body class="bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 font-sans tracking-tight">
+
+  <!-- ========== NAV ========== -->
+  <nav class="fixed top-0 w-full bg-white/80 dark:bg-gray-950/90 backdrop-blur-md z-50 border-b border-gray-200 dark:border-gray-800">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <h1 class="text-2xl font-black text-indigo-600 dark:text-indigo-400 tracking-tighter">Hassan<span class="text-gray-900 dark:text-white">.dev</span></h1>
+
+      <ul class="hidden md:flex gap-8 text-sm font-semibold uppercase tracking-widest">
+        <li><a href="#home" class="hover:text-indigo-500 transition">Home</a></li>
+        <li><a href="#skills" class="hover:text-indigo-500 transition">Skills</a></li>
+        <li><a href="#journey" class="hover:text-indigo-500 transition">Journey</a></li>
+        <li><a href="#projects" class="hover:text-indigo-500 transition">Projects</a></li>
+        <li><a href="#contact" class="hover:text-indigo-500 transition">Contact</a></li>
+      </ul>
+
+      <div class="flex items-center gap-3">
+        <button id="theme-toggle" class="p-2.5 rounded-2xl bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:ring-2 ring-indigo-400 transition-all duration-300">
+          <span id="theme-toggle-dark-icon" class="hidden text-xl text-gray-700">🌙</span>
+          <span id="theme-toggle-light-icon" class="hidden text-xl text-yellow-400">☀️</span>
+        </button>
+
+        <!-- Resume button: always visible, shorter label on mobile -->
+        <a href="./Hassan-Resume.pdf" download class="bg-indigo-600 rounded-2xl font-bold text-white hover:bg-indigo-700 transition shadow-lg shadow-indigo-500/20 px-4 py-2 text-xs sm:px-6 sm:py-2.5 sm:text-sm">
+          <span class="sm:hidden">CV</span>
+          <span class="hidden sm:inline">Resume</span>
+        </a>
+
+        <button id="menu-btn" class="md:hidden text-gray-700 dark:text-gray-300">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+      </div>
+    </div>
+
+    <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800 p-8 space-y-6 text-center shadow-xl">
+      <a href="#home" class="block text-xl font-bold">Home</a>
+      <a href="#skills" class="block text-xl font-bold">Skills</a>
+      <a href="#journey" class="block text-xl font-bold">Journey</a>
+      <a href="#projects" class="block text-xl font-bold">Projects</a>
+      <a href="#contact" class="block text-xl font-bold">Contact</a>
+    </div>
+  </nav>
+
+  <!-- ========== HERO ========== -->
+  <section id="home" class="relative min-h-screen flex items-center justify-center pt-24 overflow-hidden px-6">
+    <div class="absolute top-1/4 left-1/4 w-72 h-72 bg-indigo-500/10 dark:bg-indigo-500/20 rounded-full blur-[120px] -z-10"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-cyan-500/10 dark:bg-cyan-500/10 rounded-full blur-[150px] -z-10"></div>
+
+    <div class="max-w-7xl mx-auto text-center fade-in">
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 dark:bg-gray-900 border border-indigo-100 dark:border-gray-800 mb-8">
+        <span class="relative flex h-2.5 w-2.5">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
+        </span>
+        <span class="text-xs font-bold uppercase tracking-tighter text-indigo-600 dark:text-indigo-400 px-2">Open for new projects</span>
+      </div>
+
+      <h1 class="text-5xl sm:text-7xl md:text-9xl font-black mb-8 tracking-tighter leading-none">
+        Frontend <span class="bg-gradient-to-r from-indigo-600 via-purple-500 to-indigo-400 bg-clip-text text-transparent italic">Developer</span>
+      </h1>
+
+      <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto text-lg md:text-2xl leading-relaxed mb-12">
+        Hello, I'm <span class="text-gray-900 dark:text-white font-bold">Hassan Abbas</span>. A Frontend Developer focused on building modern, responsive, and high-performance websites.
+      </p>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+        <a href="#projects" class="w-full sm:w-auto px-10 py-5 bg-indigo-600 text-white rounded-[2rem] font-black hover:bg-indigo-700 transition-all shadow-xl hover:scale-105 active:scale-95">My Work</a>
+        <a href="#contact" class="w-full sm:w-auto px-10 py-5 border-2 border-gray-200 dark:border-gray-800 rounded-[2rem] font-black hover:bg-gray-50 dark:hover:bg-gray-900 transition-all hover:scale-105">Hire Me</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SKILLS ========== -->
+  <section id="skills" class="py-32 bg-gray-50/50 dark:bg-gray-900/30 border-y border-gray-200 dark:border-gray-800">
+    <div class="max-w-6xl mx-auto px-6 fade-in text-center">
+      <h3 class="text-4xl font-black mb-16 tracking-tighter uppercase">Skills</h3>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
+        <div class="p-10 bg-white dark:bg-gray-800 rounded-[3rem] border border-gray-100 dark:border-gray-700 shadow-sm hover:border-indigo-500 transition-all duration-300 group">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" class="w-14 h-14 mx-auto mb-4 group-hover:scale-110 transition" />
+          <p class="font-black text-sm uppercase">HTML5</p>
+        </div>
+        <div class="p-10 bg-white dark:bg-gray-800 rounded-[3rem] border border-gray-100 dark:border-gray-700 shadow-sm hover:border-indigo-500 transition-all duration-300 group">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" class="w-14 h-14 mx-auto mb-4 group-hover:scale-110 transition" />
+          <p class="font-black text-sm uppercase">CSS3</p>
+        </div>
+        <div class="p-10 bg-white dark:bg-gray-800 rounded-[3rem] border border-gray-100 dark:border-gray-700 shadow-sm hover:border-indigo-500 transition-all duration-300 group">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" class="w-14 h-14 mx-auto mb-4 group-hover:scale-110 transition" />
+          <p class="font-black text-sm uppercase">JS</p>
+        </div>
+        <div class="p-10 bg-white dark:bg-gray-800 rounded-[3rem] border border-gray-100 dark:border-gray-700 shadow-sm hover:border-indigo-500 transition-all duration-300 group">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg" class="w-14 h-14 mx-auto mb-4 group-hover:scale-110 transition" />
+          <p class="font-black text-sm uppercase">Tailwind</p>
+        </div>
+        <div class="p-10 bg-white dark:bg-gray-800 rounded-[3rem] border border-gray-100 dark:border-gray-700 shadow-sm hover:border-indigo-500 transition-all duration-300 group">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" class="w-14 h-14 mx-auto mb-4 group-hover:scale-110 transition" />
+          <p class="font-black text-sm uppercase">React</p>
+        </div>
+        <div class="p-10 bg-white dark:bg-gray-800 rounded-[3rem] border border-gray-100 dark:border-gray-700 shadow-sm hover:border-indigo-500 transition-all duration-300 group">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" class="w-14 h-14 mx-auto mb-4 group-hover:scale-110 transition" />
+          <p class="font-black text-sm uppercase">Git</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== JOURNEY ========== -->
+  <section id="journey" class="py-32 bg-white dark:bg-gray-950 px-6">
+    <div class="max-w-6xl mx-auto fade-in">
+      <div class="grid md:grid-cols-2 gap-24">
+
+        <div>
+          <h3 class="text-3xl font-black mb-16 tracking-tighter uppercase text-indigo-600 dark:text-indigo-400">Education</h3>
+          <div class="space-y-16 timeline-line relative">
+            <div class="relative pl-12">
+              <span class="absolute left-0 top-1.5 w-4 h-4 rounded-full bg-indigo-600 shadow-[0_0_15px_#6366f1]"></span>
+              <h4 class="text-2xl font-black tracking-tight">BS Computer Science</h4>
+              <p class="text-indigo-500 font-bold mb-4">University | 2024 - 2028 (Present)</p>
+              <p class="text-gray-500 dark:text-gray-400 text-lg">Focusing on modern UI development, software design, and algorithm optimization.</p>
+            </div>
+            <div class="relative pl-12">
+              <span class="absolute left-0 top-1.5 w-4 h-4 rounded-full bg-gray-300 dark:bg-gray-700"></span>
+              <h4 class="text-2xl font-black tracking-tight">Intermediate Pre Engineering</h4>
+              <p class="text-indigo-500 font-bold mb-4">College | 2022 - 2024</p>
+              <p class="text-gray-500 dark:text-gray-400 text-lg">Studied core engineering subjects with a focus on logical reasoning and mathematics.</p>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="text-3xl font-black mb-16 tracking-tighter uppercase text-indigo-600 dark:text-indigo-400">Experience</h3>
+          <div class="space-y-16 timeline-line relative">
+            <div class="relative pl-12">
+              <span class="absolute left-0 top-1.5 w-4 h-4 rounded-full bg-indigo-600 shadow-[0_0_15px_#6366f1]"></span>
+              <h4 class="text-2xl font-black tracking-tight">Frontend Developer</h4>
+              <p class="text-indigo-500 font-bold mb-4">Siblings Technology | 7 Months (Remote)</p>
+              <p class="text-gray-500 dark:text-gray-400 text-lg">Created high-fidelity web prototypes and implemented responsive frontends with React and Tailwind CSS.</p>
+            </div>
+            <div class="relative pl-12">
+              <span class="absolute left-0 top-1.5 w-4 h-4 rounded-full bg-gray-300 dark:bg-gray-700"></span>
+              <h4 class="text-2xl font-black tracking-tight">Frontend Internship</h4>
+              <p class="text-indigo-500 font-bold mb-4">Hashtagweb, Multan | 3 Month Duration</p>
+              <p class="text-gray-500 dark:text-gray-400 text-lg">Designing and developing user-friendly interfaces for local clients using modern web tools.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PROJECTS ========== -->
+  <section id="projects" class="py-32 bg-gray-50 dark:bg-gray-900/50">
+    <div class="max-w-7xl mx-auto px-6 fade-in">
+
+      <div class="text-center mb-20">
+        <h3 class="text-4xl md:text-5xl font-black tracking-tighter uppercase mb-4">Real Projects</h3>
+        <div class="h-1.5 w-20 bg-indigo-600 mx-auto rounded-full"></div>
+      </div>
+
+      <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+
+        <!-- Card 1: Fashion Website -->
+        <div class="flex flex-col bg-white dark:bg-gray-950 rounded-[3rem] overflow-hidden border border-gray-100 dark:border-gray-800 shadow-2xl group transition-all duration-500 hover:border-indigo-500/50 hover:-translate-y-1">
+          <div class="browser-bar">
+            <span class="browser-dot bg-[#ff5f57]"></span>
+            <span class="browser-dot bg-[#febc2e]"></span>
+            <span class="browser-dot bg-[#28c840]"></span>
+            <span class="browser-url"></span>
+          </div>
+          <div class="project-img-wrap">
+            <img src="Fashion-Webiste.PNG" alt="Fashion Website" />
+          </div>
+          <div class="p-10 flex flex-col flex-grow">
+            <h4 class="text-2xl font-black mb-4">Fashion Website</h4>
+            <p class="text-gray-500 dark:text-gray-400 mb-6 font-medium leading-relaxed">Fully responsive and competitive UI design using React Router DOM.</p>
+            <div class="mt-auto">
+              <a href="https://fashion-website-sable.vercel.app/" target="_blank" class="text-indigo-600 dark:text-indigo-400 font-black tracking-tighter text-lg transition-all uppercase hover:text-indigo-800 dark:hover:text-indigo-300">Live Preview →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: Omnifood -->
+        <div class="flex flex-col bg-white dark:bg-gray-950 rounded-[3rem] overflow-hidden border border-gray-100 dark:border-gray-800 shadow-2xl group transition-all duration-500 hover:border-indigo-500/50 hover:-translate-y-1">
+          <div class="browser-bar">
+            <span class="browser-dot bg-[#ff5f57]"></span>
+            <span class="browser-dot bg-[#febc2e]"></span>
+            <span class="browser-dot bg-[#28c840]"></span>
+            <span class="browser-url"></span>
+          </div>
+          <div class="project-img-wrap">
+            <img src="Food-webasite.PNG" alt="Omnifood Service" />
+          </div>
+          <div class="p-10 flex flex-col flex-grow">
+            <h4 class="text-2xl font-black mb-4">Omnifood Service</h4>
+            <p class="text-gray-500 dark:text-gray-400 mb-6 font-medium leading-relaxed">A smart food subscription service built with React Bootstrap and GSAP.</p>
+            <div class="mt-auto">
+              <a href="https://omnifoodwebsite.vercel.app/" target="_blank" class="text-indigo-600 dark:text-indigo-400 font-black tracking-tighter text-lg transition-all uppercase hover:text-indigo-800 dark:hover:text-indigo-300">Live Preview →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3: Flow-Cart -->
+        <div class="flex flex-col bg-white dark:bg-gray-950 rounded-[3rem] overflow-hidden border border-gray-100 dark:border-gray-800 shadow-2xl group transition-all duration-500 hover:border-indigo-500/50 hover:-translate-y-1">
+          <div class="browser-bar">
+            <span class="browser-dot bg-[#ff5f57]"></span>
+            <span class="browser-dot bg-[#febc2e]"></span>
+            <span class="browser-dot bg-[#28c840]"></span>
+            <span class="browser-url"></span>
+          </div>
+          <div class="project-img-wrap">
+            <img src="Flow-chart.PNG" alt="Flow Cart" />
+          </div>
+          <div class="p-10 flex flex-col flex-grow">
+            <h4 class="text-2xl font-black mb-4">Flow-Cart</h4>
+            <p class="text-gray-500 dark:text-gray-400 mb-6 font-medium leading-relaxed">State management with Redux and API integration using Axios.</p>
+            <div class="mt-auto">
+              <a href="https://flow-cart.vercel.app/" target="_blank" class="text-indigo-600 dark:text-indigo-400 font-black tracking-tighter text-lg transition-all uppercase hover:text-indigo-800 dark:hover:text-indigo-300">Live Preview →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4: Admin Dashboard -->
+        <div class="flex flex-col bg-white dark:bg-gray-950 rounded-[3rem] overflow-hidden border border-gray-100 dark:border-gray-800 shadow-2xl group transition-all duration-500 hover:border-indigo-500/50 hover:-translate-y-1">
+          <div class="browser-bar">
+            <span class="browser-dot bg-[#ff5f57]"></span>
+            <span class="browser-dot bg-[#febc2e]"></span>
+            <span class="browser-dot bg-[#28c840]"></span>
+            <span class="browser-url"></span>
+          </div>
+          <div class="project-img-wrap">
+            <img src="New.png" alt="Admin Dashboard" />
+          </div>
+          <div class="p-10 flex flex-col flex-grow">
+            <h4 class="text-2xl font-black mb-4">Admin Dashboard</h4>
+            <p class="text-gray-500 dark:text-gray-400 mb-6 font-medium leading-relaxed">Clean, dark-themed analytics dashboard for data visualization.</p>
+            <div class="mt-auto">
+              <a href="#" class="text-indigo-600 dark:text-indigo-400 font-black tracking-tighter text-lg transition-all uppercase hover:text-indigo-800 dark:hover:text-indigo-300">Live Preview →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 5: Wood Heaven -->
+        <div class="flex flex-col bg-white dark:bg-gray-950 rounded-[3rem] overflow-hidden border border-gray-100 dark:border-gray-800 shadow-2xl group transition-all duration-500 hover:border-indigo-500/50 hover:-translate-y-1">
+          <div class="browser-bar">
+            <span class="browser-dot bg-[#ff5f57]"></span>
+            <span class="browser-dot bg-[#febc2e]"></span>
+            <span class="browser-dot bg-[#28c840]"></span>
+            <span class="browser-url"></span>
+          </div>
+          <div class="project-img-wrap">
+            <img src="F.png" alt="Wood Heaven Landing Page" />
+          </div>
+          <div class="p-10 flex flex-col flex-grow">
+            <h4 class="text-2xl font-black mb-4">Landing page Wood Heaven</h4>
+            <p class="text-gray-500 dark:text-gray-400 mb-6 font-medium leading-relaxed">Furniture Website Modern Design</p>
+            <div class="mt-auto">
+              <a href="https://gleeful-swan-4897d0.netlify.app/index.html" target="_blank" class="text-indigo-600 dark:text-indigo-400 font-black tracking-tighter text-lg transition-all uppercase hover:text-indigo-800 dark:hover:text-indigo-300">Live Preview →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 6: Dtech LMS -->
+        <div class="flex flex-col bg-white dark:bg-gray-950 rounded-[3rem] overflow-hidden border border-gray-100 dark:border-gray-800 shadow-2xl group transition-all duration-500 hover:border-indigo-500/50 hover:-translate-y-1">
+          <div class="browser-bar">
+            <span class="browser-dot bg-[#ff5f57]"></span>
+            <span class="browser-dot bg-[#febc2e]"></span>
+            <span class="browser-dot bg-[#28c840]"></span>
+            <span class="browser-url"></span>
+          </div>
+          <div class="project-img-wrap">
+            <img src="Capture.PNG" alt="Dtech LMS App" />
+          </div>
+          <div class="p-10 flex flex-col flex-grow">
+            <h4 class="text-2xl font-black mb-4">Dtech LMS APP</h4>
+            <p class="text-gray-500 dark:text-gray-400 mb-6 font-medium leading-relaxed">Modern Desktop Design Using React & Node.js</p>
+            <div class="mt-auto">
+              <a href="#" class="text-indigo-600 dark:text-indigo-400 font-black tracking-tighter text-lg transition-all uppercase hover:text-indigo-800 dark:hover:text-indigo-300">Live Preview →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 7: POS Software (2 images -> lightbox) -->
+        <button type="button" data-gallery="pos" aria-label="View POS Software screenshots" aria-haspopup="dialog" class="w-full text-left cursor-pointer focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-indigo-500 flex flex-col bg-white dark:bg-gray-950 rounded-[3rem] overflow-hidden border border-gray-100 dark:border-gray-800 shadow-2xl group transition-all duration-500 hover:border-indigo-500/50 hover:-translate-y-1">
+          <div class="browser-bar">
+            <span class="browser-dot bg-[#ff5f57]"></span>
+            <span class="browser-dot bg-[#febc2e]"></span>
+            <span class="browser-dot bg-[#28c840]"></span>
+            <span class="browser-url"></span>
+          </div>
+          <div class="project-img-wrap relative">
+            <img src="pos1.png" alt="POS Software" />
+            <span class="absolute top-3 right-3 px-3 py-1 rounded-full bg-black/70 text-white text-xs font-bold backdrop-blur">🖼 2 Images</span>
+          </div>
+          <div class="p-10 flex flex-col flex-grow">
+            <h4 class="text-2xl font-black mb-4">Pos Software</h4>
+            <p class="text-gray-500 dark:text-gray-400 mb-6 font-medium leading-relaxed">Modern Desktop Design using React and Laravel</p>
+            <div class="mt-auto text-indigo-600 dark:text-indigo-400 font-black tracking-tighter text-lg uppercase">View Screenshots →</div>
+          </div>
+        </button>
+
+        <!-- Card 8: D Rosa (2 images -> lightbox) -->
+        <button type="button" data-gallery="drosa" aria-label="View D Rosa screenshots" aria-haspopup="dialog" class="w-full text-left cursor-pointer focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-indigo-500 flex flex-col bg-white dark:bg-gray-950 rounded-[3rem] overflow-hidden border border-gray-100 dark:border-gray-800 shadow-2xl group transition-all duration-500 hover:border-indigo-500/50 hover:-translate-y-1">
+          <div class="browser-bar">
+            <span class="browser-dot bg-[#ff5f57]"></span>
+            <span class="browser-dot bg-[#febc2e]"></span>
+            <span class="browser-dot bg-[#28c840]"></span>
+            <span class="browser-url"></span>
+          </div>
+          <div class="project-img-wrap relative">
+            <img src="drosa.png" alt="D Rosa website" />
+            <span class="absolute top-3 right-3 px-3 py-1 rounded-full bg-black/70 text-white text-xs font-bold backdrop-blur">🖼 2 Images</span>
+          </div>
+          <div class="p-10 flex flex-col flex-grow">
+            <h4 class="text-2xl font-black mb-4">D Rosa</h4>
+            <p class="text-gray-500 dark:text-gray-400 mb-6 font-medium leading-relaxed">A responsive website built with PHP and MySQL backend, with an admin panel.</p>
+            <div class="mt-auto text-indigo-600 dark:text-indigo-400 font-black tracking-tighter text-lg uppercase">View Screenshots →</div>
+          </div>
+        </button>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== IMAGE LIGHTBOX ========== -->
+  <div id="lightbox" role="dialog" aria-modal="true" aria-labelledby="lb-title" class="hidden fixed inset-0 z-[100] flex-col bg-black/90 backdrop-blur-sm">
+    <div class="flex items-center justify-between gap-4 px-5 py-4 text-white">
+      <div>
+        <h2 id="lb-title" class="text-xl sm:text-2xl font-black"></h2>
+        <p id="lb-caption" class="text-sm text-gray-300 font-semibold"></p>
+      </div>
+      <div class="flex items-center gap-4">
+        <span id="lb-count" class="text-sm font-bold text-gray-300"></span>
+        <button id="lb-close" type="button" aria-label="Close" class="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-2xl leading-none transition">×</button>
+      </div>
+    </div>
+
+    <div id="lb-stage" class="relative flex-1 min-h-0 flex items-center justify-center px-4 sm:px-20">
+      <button id="lb-prev" type="button" aria-label="Previous image" class="absolute left-2 sm:left-6 z-10 w-11 h-11 rounded-full bg-white/10 hover:bg-indigo-600 text-white text-2xl transition">‹</button>
+      <img id="lb-img" src="" alt="" class="max-w-full max-h-full object-contain rounded-xl shadow-2xl select-none" />
+      <button id="lb-next" type="button" aria-label="Next image" class="absolute right-2 sm:right-6 z-10 w-11 h-11 rounded-full bg-white/10 hover:bg-indigo-600 text-white text-2xl transition">›</button>
+    </div>
+
+    <div id="lb-thumbs" class="flex justify-center gap-3 px-4 py-4"></div>
+  </div>
+
+  <!-- ========== CONTACT ========== -->
+  <section id="contact" class="py-32 bg-white dark:bg-gray-950 px-6">
+    <div class="max-w-3xl mx-auto fade-in text-center">
+      <h3 class="text-5xl font-black mb-16 tracking-tighter uppercase italic">Work With Me</h3>
+      <form id="form" class="space-y-6">
+        <input type="hidden" name="access_key" value="36417901-be75-45cf-ba3b-5ecb8beaa897">
+        <input type="hidden" name="subject" value="New Contact Form Submission from Hassan Portfolio">
+        <input type="hidden" name="from_name" value="Hassan's Portfolio Contact Form">
+        <div class="grid sm:grid-cols-2 gap-6">
+          <input type="text" name="name" placeholder="Full Name" required class="w-full px-8 py-5 rounded-3xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 focus:border-indigo-500 outline-none transition font-semibold" />
+          <input type="email" name="email" placeholder="Email Address" required class="w-full px-8 py-5 rounded-3xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 focus:border-indigo-500 outline-none transition font-semibold" />
+        </div>
+        <textarea name="message" rows="6" placeholder="Project details or just hello..." required class="w-full px-8 py-5 rounded-3xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 focus:border-indigo-500 outline-none transition font-semibold"></textarea>
+        <button type="submit" id="submit-btn" class="w-full py-6 rounded-3xl bg-indigo-600 font-black text-white text-xl hover:bg-indigo-700 transition shadow-2xl active:scale-95">Send Message</button>
+        <div id="result" class="mt-6 text-lg font-bold"></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="py-16 text-center border-t border-gray-200 dark:border-gray-900 bg-white dark:bg-black">
+    <div class="max-w-7xl mx-auto">
+      <p class="text-gray-400 dark:text-gray-600 text-sm font-black tracking-widest uppercase">© 2026 Hassan Abbas | Crafted in Lahore, PK</p>
+    </div>
+  </footer>
+
+  <script>
+    // 1. THEME TOGGLE
+    const toggleBtn = document.getElementById('theme-toggle');
+    const darkIcon = document.getElementById('theme-toggle-dark-icon');
+    const lightIcon = document.getElementById('theme-toggle-light-icon');
+
+    const updateIcons = () => {
+      if (document.documentElement.classList.contains('dark')) {
+        lightIcon.classList.remove('hidden');
+        darkIcon.classList.add('hidden');
+      } else {
+        darkIcon.classList.remove('hidden');
+        lightIcon.classList.add('hidden');
+      }
+    };
+
+    if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    updateIcons();
+
+    toggleBtn.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+      updateIcons();
+    });
+
+    // 2. MOBILE MENU
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+    document.querySelectorAll('#mobile-menu a').forEach(link => link.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+
+    // 2.1 IMAGE LIGHTBOX
+    const galleries = {
+      pos: {
+        title: 'POS Software',
+        images: [
+          { src: 'pos1.png', caption: 'POS Billing Screen' },
+          { src: 'pos2.png', caption: 'POS Dashboard' }
+        ]
+      },
+      drosa: {
+        title: 'D Rosa',
+        images: [
+          { src: 'drosa.png', caption: 'D Rosa Website' },
+          { src: 'dashboard.png', caption: 'Admin Dashboard' }
+        ]
+      }
+    };
+
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lb-img');
+    const lbTitle = document.getElementById('lb-title');
+    const lbCaption = document.getElementById('lb-caption');
+    const lbCount = document.getElementById('lb-count');
+    const lbThumbs = document.getElementById('lb-thumbs');
+    const lbStage = document.getElementById('lb-stage');
+    let currentGallery = null, currentIdx = 0, lastFocused = null;
+
+    function renderLightbox() {
+      const g = galleries[currentGallery];
+      const item = g.images[currentIdx];
+      lbImg.src = item.src;
+      lbImg.alt = item.caption;
+      lbTitle.textContent = g.title;
+      lbCaption.textContent = item.caption;
+      lbCount.textContent = `${currentIdx + 1} / ${g.images.length}`;
+
+      lbThumbs.innerHTML = '';
+      g.images.forEach((m, i) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.setAttribute('aria-label', `Show ${m.caption}`);
+        b.className = 'w-20 h-14 rounded-lg overflow-hidden border-2 transition ' +
+          (i === currentIdx ? 'border-indigo-500 opacity-100' : 'border-transparent opacity-50 hover:opacity-100');
+        b.innerHTML = `<img src="${m.src}" alt="" class="w-full h-full object-cover" />`;
+        b.addEventListener('click', () => { currentIdx = i; renderLightbox(); });
+        lbThumbs.appendChild(b);
+      });
+    }
+
+    function openLightbox(name) {
+      currentGallery = name;
+      currentIdx = 0;
+      lastFocused = document.activeElement;
+      lb.classList.remove('hidden');
+      lb.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+      renderLightbox();
+      document.getElementById('lb-close').focus();
+    }
+
+    function closeLightbox() {
+      lb.classList.add('hidden');
+      lb.classList.remove('flex');
+      document.body.style.overflow = '';
+      if (lastFocused) lastFocused.focus();
+    }
+
+    function step(dir) {
+      const len = galleries[currentGallery].images.length;
+      currentIdx = (currentIdx + dir + len) % len;
+      renderLightbox();
+    }
+
+    document.querySelectorAll('[data-gallery]').forEach(card =>
+      card.addEventListener('click', () => openLightbox(card.dataset.gallery))
+    );
+    document.getElementById('lb-close').addEventListener('click', closeLightbox);
+    document.getElementById('lb-prev').addEventListener('click', () => step(-1));
+    document.getElementById('lb-next').addEventListener('click', () => step(1));
+
+    // bahar (dark area) click karne pe band
+    lb.addEventListener('click', e => { if (e.target === lb || e.target === lbStage) closeLightbox(); });
+
+    // keyboard
+    document.addEventListener('keydown', e => {
+      if (lb.classList.contains('hidden')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') step(-1);
+      if (e.key === 'ArrowRight') step(1);
+    });
+
+    // mobile swipe
+    let touchX = 0;
+    lbStage.addEventListener('touchstart', e => { touchX = e.changedTouches[0].clientX; }, { passive: true });
+    lbStage.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - touchX;
+      if (Math.abs(dx) > 50) step(dx > 0 ? -1 : 1);
+    });
+
+    // 3. CONTACT FORM
+    const form = document.getElementById('form');
+    const result = document.getElementById('result');
+    const btn = document.getElementById('submit-btn');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      btn.innerText = "Sending...";
+      btn.disabled = true;
+
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData);
+
+      console.log('Sending form data:', data);
+
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data)
+      })
+      .then(async (response) => {
+        const json = await response.json();
+        console.log('Response:', json);
+
+        if (response.status == 200 || (json && json.success)) {
+          result.innerHTML = "✅ Message Received! I'll be in touch soon. Check your email!";
+          result.className = "text-green-500 mt-6 font-bold text-lg";
+          form.reset();
+        } else {
+          result.innerHTML = `⚠️ Error: ${json.message || 'Something went wrong'}`;
+          result.className = "text-red-500 mt-6 font-bold text-lg";
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        result.innerHTML = "❌ Connection error. Please try again.";
+        result.className = "text-red-500 mt-6 font-bold text-lg";
+      })
+      .finally(() => {
+        btn.innerText = "Send Message";
+        btn.disabled = false;
+        setTimeout(() => { result.innerHTML = ""; }, 6000);
+      });
+    });
+
+    // 4. SCROLL ANIMATION
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('show');
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
